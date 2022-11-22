@@ -2,11 +2,14 @@
 using la_mia_pizzeria_static.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
 namespace la_mia_pizzeria_static.Controllers
 {
     public class PizzaList : Controller
+
+
     {
         public IActionResult Index()
         {
@@ -23,7 +26,25 @@ namespace la_mia_pizzeria_static.Controllers
 
             Pizza pizza = pi.pizze.Where(p => p.Id == id).FirstOrDefault();
 
-            return View("show",pizza);
+            return View("show", pizza);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Pizza pizza)
+        {
+            PizzaDB pi = new PizzaDB();
+
+            pi.pizze.Add(pizza);
+            pi.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
     }
 }
