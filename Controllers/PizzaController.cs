@@ -23,7 +23,7 @@ namespace la_mia_pizzeria_static.Controllers
 
             Pizza pizza = pi.pizze.Where(p => p.Id == id).FirstOrDefault();
 
-            return View("Show", pizza);
+            return View(pizza);
         }
 
         public IActionResult Create()
@@ -36,6 +36,12 @@ namespace la_mia_pizzeria_static.Controllers
         public IActionResult Create(Pizza pizza)
         {
             PizzaDB pi = new PizzaDB();
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
 
             pi.pizze.Add(pizza);
             pi.SaveChanges();
