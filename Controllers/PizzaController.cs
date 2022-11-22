@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace la_mia_pizzeria_static.Controllers
 {
-    public class PizzaList : Controller
+    public class PizzaController : Controller
 
 
     {
@@ -26,7 +26,7 @@ namespace la_mia_pizzeria_static.Controllers
 
             Pizza pizza = pi.pizze.Where(p => p.Id == id).FirstOrDefault();
 
-            return View("show", pizza);
+            return View("Show", pizza);
         }
 
         public IActionResult Create()
