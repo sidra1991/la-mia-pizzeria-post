@@ -1,23 +1,20 @@
 ﻿using la_mia_pizzeria_static.data;
 using la_mia_pizzeria_static.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
+
 
 namespace la_mia_pizzeria_static.Controllers
 {
     public class PizzaController : Controller
-
-
     {
+
         public IActionResult Index()
         {
             PizzaDB pi = new PizzaDB();
 
             List<Pizza> pizzaList = pi.pizze.ToList();
 
-            return View(pizzaList);
+            return View("Index", pizzaList);
         }
 
         public IActionResult Show(int id)
@@ -31,7 +28,7 @@ namespace la_mia_pizzeria_static.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            return View("Create");
         }
 
         [HttpPost]
@@ -45,6 +42,5 @@ namespace la_mia_pizzeria_static.Controllers
 
             return RedirectToAction("Index");
         }
-
     }
 }
